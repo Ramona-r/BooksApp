@@ -1,5 +1,20 @@
 def add_book():
-    print("Add a book option")
+    book_name = input("Insert a book name -> ")
+    author_name = input("Insert an author name -> ")
+    # import csv library
+    import csv
+    # standard implementation from the csv library
+    with open("booksDB.csv", "w") as file:
+        # insert the table header
+        writer = csv.DictWriter(file, fieldnames= [
+            "BookName", "AuthorName", "SharedWith", "IsRead"
+        ])
+        # add content to each option
+        writer.writerow({"BookName": book_name,
+                         "AuthorName": author_name})
+        print ("Book was added successfully")
+
+
 
 
 def list_books():
