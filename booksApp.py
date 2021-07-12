@@ -11,12 +11,30 @@ def add_book():
         ])
         # add content to each option
         writer.writerow({"BookName": book_name,
-                         "AuthorName": author_name})
+                         "AuthorName": author_name,
+                         "SharedWith": 'None',
+                         "IsRead": False
+                         })
+
         print("Book was added successfully")
 
 
 def list_books():
-    print("List books option")
+    import csv
+    with open("booksDB.csv", mode="r") as file:
+        # extract all the data from the data base
+        rows = csv.DictReader(file, fieldnames=("BookName", "AuthorName", "SharedWith", "IsRead"))
+        # each row/element is go through one by one
+        for row in rows:
+            # print(f"The book name is: {row.get('BookName')}")
+            # print(f"The author name is: {row.get('AuthorName')}")
+            # print(f"The book is shared with: {row.get('SharedWith')}")
+            # print(f"The book is read: {row.get('IsRead')}")
+
+            # we use the formatted version
+            print(
+                f"Book name is: {row.get('BookName')}, Author Name: {row.get('AuthorName')}, "
+                f"Is Shared: {row.get('ShareWith')}, Is Read {row.get('IsRead', False )}.")
 
 
 def update_book():
