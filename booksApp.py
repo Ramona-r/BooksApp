@@ -67,7 +67,26 @@ def update_book():
 
 
 def share_book():
-
+    book_name = input("Enter the book that you want to share ->")
+    shared_with = input("Who do you want to share the book with?")
+    import csv
+    with open("booksDB.csv", mode="r") as file:
+        rows = list(csv.DictReader(file, fieldnames=("BookName", "AuthorName", "SharedWith", "IsRead")))
+        for row in rows:
+            if row["BookName"] == book_name:
+                row["SharedWith"] = shared_with
+                break
+            else:
+                print("The book is not in DB")
+        with open("booksDB.csv", mode="w") as file:
+            csv_writer = csv.DictWriter(file, fieldnames=[
+                "BookName", "AuthorName", "SharedWith", "IsRead"
+            ])
+            csv_writer.writerow({"BookName": row.get("BookName"),
+                                 "AuthorName": row.get("AuthorName"),
+                                 "SharedWith": shared_with,
+                                 "IsRead": row.get("IsRead")}
+                                )
     print("Share a book option")
 
 
